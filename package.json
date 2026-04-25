@@ -11,8 +11,8 @@
   "author": "Shahriyar Hasan",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.22.1",
-    "lowdb": "^7.0.1"
+    "@supabase/supabase-js": "^2.104.1",
+    "express": "^4.22.1"
   },
   "keywords": []
 }

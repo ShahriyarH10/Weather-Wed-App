@@ -124,6 +124,122 @@
         }
       ],
       "createdAt": "2026-04-25T12:17:16.691Z"
+    },
+    {
+      "id": "d71637ee-c83d-422f-9807-1c0046668be0",
+      "locationQuery": "Dhaka",
+      "location": {
+        "name": "Dhaka",
+        "latitude": 23.7104,
+        "longitude": 90.40744,
+        "country": "Bangladesh",
+        "countryCode": "BD",
+        "admin1": "Dhaka Division",
+        "timezone": "Asia/Dhaka",
+        "displayName": "Dhaka, Dhaka Division, Bangladesh",
+        "mapEmbedUrl": "https://www.openstreetmap.org/export/embed.html?bbox=90.3274%2C23.6304%2C90.4874%2C23.7904&layer=mapnik&marker=23.7104%2C90.40744",
+        "mapUrl": "https://www.openstreetmap.org/?mlat=23.7104&mlon=90.40744#map=11/23.7104/90.40744"
+      },
+      "startDate": "2026-04-25",
+      "endDate": "2026-04-26",
+      "source": "forecast",
+      "dailyWeather": [
+        {
+          "date": "2026-04-25",
+          "weatherCode": 95,
+          "label": "Thunderstorm",
+          "emoji": "⛈️",
+          "maxTemp": 36.2,
+          "minTemp": 26.4,
+          "precipitationSum": 0.1
+        },
+        {
+          "date": "2026-04-26",
+          "weatherCode": 95,
+          "label": "Thunderstorm",
+          "emoji": "⛈️",
+          "maxTemp": 36.3,
+          "minTemp": 25.7,
+          "precipitationSum": 14.1
+        }
+      ],
+      "createdAt": "2026-04-25T13:14:41.990Z"
+    },
+    {
+      "id": "1d36cf63-c5bd-4112-b127-86d203d115bf",
+      "locationQuery": "Dhaka",
+      "location": {
+        "name": "Dhaka",
+        "latitude": 23.7104,
+        "longitude": 90.40744,
+        "country": "Bangladesh",
+        "countryCode": "BD",
+        "admin1": "Dhaka Division",
+        "timezone": "Asia/Dhaka",
+        "displayName": "Dhaka, Dhaka Division, Bangladesh",
+        "mapEmbedUrl": "https://www.openstreetmap.org/export/embed.html?bbox=90.3274%2C23.6304%2C90.4874%2C23.7904&layer=mapnik&marker=23.7104%2C90.40744",
+        "mapUrl": "https://www.openstreetmap.org/?mlat=23.7104&mlon=90.40744#map=11/23.7104/90.40744"
+      },
+      "startDate": "2026-04-25",
+      "endDate": "2026-04-30",
+      "source": "forecast",
+      "dailyWeather": [
+        {
+          "date": "2026-04-25",
+          "weatherCode": 95,
+          "label": "Thunderstorm",
+          "emoji": "⛈️",
+          "maxTemp": 36.2,
+          "minTemp": 26.4,
+          "precipitationSum": 0.1
+        },
+        {
+          "date": "2026-04-26",
+          "weatherCode": 95,
+          "label": "Thunderstorm",
+          "emoji": "⛈️",
+          "maxTemp": 36.3,
+          "minTemp": 25.7,
+          "precipitationSum": 14.1
+        },
+        {
+          "date": "2026-04-27",
+          "weatherCode": 95,
+          "label": "Thunderstorm",
+          "emoji": "⛈️",
+          "maxTemp": 34,
+          "minTemp": 25,
+          "precipitationSum": 36.2
+        },
+        {
+          "date": "2026-04-28",
+          "weatherCode": 95,
+          "label": "Thunderstorm",
+          "emoji": "⛈️",
+          "maxTemp": 35,
+          "minTemp": 23.5,
+          "precipitationSum": 22.3
+        },
+        {
+          "date": "2026-04-29",
+          "weatherCode": 95,
+          "label": "Thunderstorm",
+          "emoji": "⛈️",
+          "maxTemp": 30.6,
+          "minTemp": 24.4,
+          "precipitationSum": 34.1
+        },
+        {
+          "date": "2026-04-30",
+          "weatherCode": 95,
+          "label": "Thunderstorm",
+          "emoji": "⛈️",
+          "maxTemp": 28.5,
+          "minTemp": 24.4,
+          "precipitationSum": 42.7
+        }
+      ],
+      "createdAt": "2026-04-25T13:15:36.008Z"
     }
   ]
 }

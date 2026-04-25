@@ -1,8 +1,8 @@
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { JSONFilePreset } from 'lowdb/node';
 import crypto from 'crypto';
+import { createClient } from '@supabase/supabase-js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,8 +10,19 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const db = await JSONFilePreset(path.join(__dirname, 'data', 'db.json'), {
-  records: []
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error('Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY');
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey, {
+  auth: {
+    autoRefreshToken: false,
+    persistSession: false,
+    detectSessionInUrl: false
+  }
 });
 
 app.use(express.json());
@@ -94,20 +105,6 @@ function validateDateRange(startDate, endDate) {
   return { ok: true, start, end, days };
 }
 
-function buildOsmEmbedUrl(lat, lon) {
-  const delta = 0.08;
-  const left = (lon - delta).toFixed(4);
-  const right = (lon + delta).toFixed(4);
-  const top = (lat + delta).toFixed(4);
-  const bottom = (lat - delta).toFixed(4);
-
-  return `https://www.openstreetmap.org/export/embed.html?bbox=${left}%2C${bottom}%2C${right}%2C${top}&layer=mapnik&marker=${lat}%2C${lon}`;
-}
-
-function buildOsmLink(lat, lon) {
-  return `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=11/${lat}/${lon}`;
-}
-
 function getWeatherLabel(code) {
   return WMO_LABELS[code] || 'Unknown';
 }
@@ -152,6 +149,19 @@ function buildSmartNotes(current, daily) {
   }
 
   return notes;
+}
+
+function parseCoordinateInput(raw) {
+  const match = String(raw)
+    .trim()
+    .match(/^\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*$/);
+
+  if (!match) return null;
+
+  return {
+    latitude: Number(match[1]),
+    longitude: Number(match[2])
+  };
 }
 
 async function fetchJson(url, options = {}) {
@@ -214,6 +224,16 @@ async function reverseGeocode(lat, lon) {
   };
 }
 
+async function resolveLocationInput(input) {
+  const coords = parseCoordinateInput(input);
+
+  if (coords) {
+    return reverseGeocode(coords.latitude, coords.longitude);
+  }
+
+  return geocodeLocation(String(input).trim());
+}
+
 async function getCurrentAndForecast(location) {
   const url =
     `https://api.open-meteo.com/v1/forecast?latitude=${location.latitude}` +
@@ -225,11 +245,7 @@ async function getCurrentAndForecast(location) {
   const data = await fetchJson(url);
 
   return {
-    location: {
-      ...location,
-      mapEmbedUrl: buildOsmEmbedUrl(location.latitude, location.longitude),
-      mapUrl: buildOsmLink(location.latitude, location.longitude)
-    },
+    location,
     current: {
       ...data.current,
       label: getWeatherLabel(data.current.weather_code),
@@ -402,8 +418,43 @@ function recordToMarkdown(records) {
   return lines.join('\n');
 }
 
-app.get('/api/health', (_req, res) => {
-  res.json({ ok: true, timestamp: new Date().toISOString() });
+function rowToRecord(row) {
+  return {
+    id: row.id,
+    locationQuery: row.location_query,
+    location: row.location,
+    startDate: row.start_date,
+    endDate: row.end_date,
+    source: row.source,
+    dailyWeather: row.daily_weather,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at ?? null
+  };
+}
+
+function recordToRow(record) {
+  return {
+    id: record.id,
+    location_query: record.locationQuery,
+    location: record.location,
+    start_date: record.startDate,
+    end_date: record.endDate,
+    source: record.source,
+    daily_weather: record.dailyWeather,
+    created_at: record.createdAt,
+    updated_at: record.updatedAt ?? null
+  };
+}
+
+app.get('/api/health', async (_req, res) => {
+  try {
+    const { error } = await supabase.from('weather_records').select('id').limit(1);
+    if (error) throw error;
+
+    res.json({ ok: true, timestamp: new Date().toISOString(), database: 'connected' });
+  } catch (error) {
+    res.status(500).json({ ok: false, error: error.message });
+  }
 });
 
 app.get('/api/weather/current', async (req, res) => {
@@ -412,7 +463,7 @@ app.get('/api/weather/current', async (req, res) => {
     let location;
 
     if (query) {
-      location = await geocodeLocation(String(query).trim());
+      location = await resolveLocationInput(String(query).trim());
     } else if (lat && lon) {
       location = await reverseGeocode(Number(lat), Number(lon));
     } else {
@@ -436,49 +487,75 @@ app.get('/api/weather/current', async (req, res) => {
   }
 });
 
-app.get('/api/records', (_req, res) => {
-  const sorted = [...db.data.records].sort((a, b) =>
-    b.createdAt.localeCompare(a.createdAt)
-  );
-  res.json(sorted);
+app.get('/api/records', async (_req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('weather_records')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    res.json(data.map(rowToRecord));
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
-app.get('/api/records/export', (req, res) => {
-  const format = String(req.query.format || 'json').toLowerCase();
-  const records = [...db.data.records].sort((a, b) =>
-    b.createdAt.localeCompare(a.createdAt)
-  );
+app.get('/api/records/export', async (req, res) => {
+  try {
+    const format = String(req.query.format || 'json').toLowerCase();
 
-  if (format === 'json') {
-    res.setHeader('Content-Disposition', 'attachment; filename="weather-records.json"');
-    return res.json(records);
+    const { data, error } = await supabase
+      .from('weather_records')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    const records = data.map(rowToRecord);
+
+    if (format === 'json') {
+      res.setHeader('Content-Disposition', 'attachment; filename="weather-records.json"');
+      return res.json(records);
+    }
+
+    if (format === 'csv') {
+      res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+      res.setHeader('Content-Disposition', 'attachment; filename="weather-records.csv"');
+      return res.send(recordToCsv(records));
+    }
+
+    if (format === 'md' || format === 'markdown') {
+      res.setHeader('Content-Type', 'text/markdown; charset=utf-8');
+      res.setHeader('Content-Disposition', 'attachment; filename="weather-records.md"');
+      return res.send(recordToMarkdown(records));
+    }
+
+    return res.status(400).json({
+      error: 'Unsupported export format. Use json, csv, or markdown.'
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
-
-  if (format === 'csv') {
-    res.setHeader('Content-Type', 'text/csv; charset=utf-8');
-    res.setHeader('Content-Disposition', 'attachment; filename="weather-records.csv"');
-    return res.send(recordToCsv(records));
-  }
-
-  if (format === 'md' || format === 'markdown') {
-    res.setHeader('Content-Type', 'text/markdown; charset=utf-8');
-    res.setHeader('Content-Disposition', 'attachment; filename="weather-records.md"');
-    return res.send(recordToMarkdown(records));
-  }
-
-  return res.status(400).json({
-    error: 'Unsupported export format. Use json, csv, or markdown.'
-  });
 });
 
-app.get('/api/records/:id', (req, res) => {
-  const record = db.data.records.find((item) => item.id === req.params.id);
+app.get('/api/records/:id', async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('weather_records')
+      .select('*')
+      .eq('id', req.params.id)
+      .single();
 
-  if (!record) {
-    return res.status(404).json({ error: 'Record not found.' });
+    if (error || !data) {
+      return res.status(404).json({ error: 'Record not found.' });
+    }
+
+    res.json(rowToRecord(data));
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
-
-  res.json(record);
 });
 
 app.post('/api/records', async (req, res) => {
@@ -492,16 +569,15 @@ app.post('/api/records', async (req, res) => {
     }
 
     const validation = validateDateRange(startDate, endDate);
-
     if (!validation.ok) {
       return res.status(400).json({ error: validation.message });
     }
 
-    const location = await geocodeLocation(locationQuery);
+    const location = await resolveLocationInput(locationQuery);
 
     if (!location) {
       return res.status(404).json({
-        error: 'The location could not be validated.'
+        error: 'Location could not be validated. Use a full city/country like "Dhaka, Bangladesh" or coordinates like "23.8103, 90.4125".'
       });
     }
 
@@ -510,22 +586,24 @@ app.post('/api/records', async (req, res) => {
     const record = {
       id: crypto.randomUUID(),
       locationQuery,
-      location: {
-        ...location,
-        mapEmbedUrl: buildOsmEmbedUrl(location.latitude, location.longitude),
-        mapUrl: buildOsmLink(location.latitude, location.longitude)
-      },
+      location,
       startDate,
       endDate,
       source: range.source,
       dailyWeather: range.items,
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
+      updatedAt: null
     };
 
-    db.data.records.push(record);
-    await db.write();
+    const { data, error } = await supabase
+      .from('weather_records')
+      .insert(recordToRow(record))
+      .select()
+      .single();
 
-    res.status(201).json(record);
+    if (error) throw error;
+
+    res.status(201).json(rowToRecord(data));
   } catch (error) {
     res.status(500).json({
       error: error.message || 'Unable to create record.'
@@ -535,46 +613,59 @@ app.post('/api/records', async (req, res) => {
 
 app.put('/api/records/:id', async (req, res) => {
   try {
-    const record = db.data.records.find((item) => item.id === req.params.id);
+    const { data: existing, error: existingError } = await supabase
+      .from('weather_records')
+      .select('*')
+      .eq('id', req.params.id)
+      .single();
 
-    if (!record) {
+    if (existingError || !existing) {
       return res.status(404).json({ error: 'Record not found.' });
     }
 
-    const locationQuery = String(req.body.locationQuery || record.locationQuery).trim();
-    const startDate = String(req.body.startDate || record.startDate).trim();
-    const endDate = String(req.body.endDate || record.endDate).trim();
+    const oldRecord = rowToRecord(existing);
+
+    const locationQuery = String(req.body.locationQuery || oldRecord.locationQuery).trim();
+    const startDate = String(req.body.startDate || oldRecord.startDate).trim();
+    const endDate = String(req.body.endDate || oldRecord.endDate).trim();
 
     const validation = validateDateRange(startDate, endDate);
-
     if (!validation.ok) {
       return res.status(400).json({ error: validation.message });
     }
 
-    const location = await geocodeLocation(locationQuery);
+    const location = await resolveLocationInput(locationQuery);
 
     if (!location) {
       return res.status(404).json({
-        error: 'The updated location could not be validated.'
+        error: 'Updated location could not be validated. Use a full city/country like "Dhaka, Bangladesh" or coordinates like "23.8103, 90.4125".'
       });
     }
 
     const range = await getRangeTemperatures(location, startDate, endDate);
 
-    record.locationQuery = locationQuery;
-    record.location = {
-      ...location,
-      mapEmbedUrl: buildOsmEmbedUrl(location.latitude, location.longitude),
-      mapUrl: buildOsmLink(location.latitude, location.longitude)
+    const updatedRecord = {
+      id: oldRecord.id,
+      locationQuery,
+      location,
+      startDate,
+      endDate,
+      source: range.source,
+      dailyWeather: range.items,
+      createdAt: oldRecord.createdAt,
+      updatedAt: new Date().toISOString()
     };
-    record.startDate = startDate;
-    record.endDate = endDate;
-    record.source = range.source;
-    record.dailyWeather = range.items;
-    record.updatedAt = new Date().toISOString();
 
-    await db.write();
-    res.json(record);
+    const { data, error } = await supabase
+      .from('weather_records')
+      .update(recordToRow(updatedRecord))
+      .eq('id', req.params.id)
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    res.json(rowToRecord(data));
   } catch (error) {
     res.status(500).json({
       error: error.message || 'Unable to update record.'
@@ -583,16 +674,22 @@ app.put('/api/records/:id', async (req, res) => {
 });
 
 app.delete('/api/records/:id', async (req, res) => {
-  const index = db.data.records.findIndex((item) => item.id === req.params.id);
+  try {
+    const { data, error } = await supabase
+      .from('weather_records')
+      .delete()
+      .eq('id', req.params.id)
+      .select()
+      .single();
 
-  if (index === -1) {
-    return res.status(404).json({ error: 'Record not found.' });
+    if (error || !data) {
+      return res.status(404).json({ error: 'Record not found.' });
+    }
+
+    res.json({ ok: true, deletedId: data.id });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
-
-  const [deleted] = db.data.records.splice(index, 1);
-  await db.write();
-
-  res.json({ ok: true, deletedId: deleted.id });
 });
 
 app.use('/api', (req, res) => {
