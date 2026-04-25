@@ -1,10 +1,14 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shahriyar Hasan | WeatherScope AI</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230b1020'/%3E%3Cstop offset='100%25' stop-color='%23131a31'/%3E%3C/linearGradient%3E%3ClinearGradient id='a' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%234f9eff'/%3E%3Cstop offset='100%25' stop-color='%233fefd2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='7' fill='url(%23bg)'/%3E%3Cpath d='M 6 20 A 12 12 0 0 1 26 20' fill='none' stroke='%234f9eff' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M 9 21.5 A 8 8 0 0 1 23 21.5' fill='none' stroke='%234f9eff' stroke-width='2' stroke-linecap='round' opacity='0.75'/%3E%3Cpath d='M 12 23 A 4.5 4.5 0 0 1 20 23' fill='none' stroke='%234f9eff' stroke-width='1.8' stroke-linecap='round' opacity='0.5'/%3E%3Ccircle cx='16' cy='24.5' r='2.2' fill='%234f9eff'/%3E%3Ccircle cx='16' cy='24.5' r='1.1' fill='%233fefd2'/%3E%3C/svg%3E" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230b1020'/%3E%3Cstop offset='100%25' stop-color='%23131a31'/%3E%3C/linearGradient%3E%3ClinearGradient id='a' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%234f9eff'/%3E%3Cstop offset='100%25' stop-color='%233fefd2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='7' fill='url(%23bg)'/%3E%3Cpath d='M 6 20 A 12 12 0 0 1 26 20' fill='none' stroke='%234f9eff' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M 9 21.5 A 8 8 0 0 1 23 21.5' fill='none' stroke='%234f9eff' stroke-width='2' stroke-linecap='round' opacity='0.75'/%3E%3Cpath d='M 12 23 A 4.5 4.5 0 0 1 20 23' fill='none' stroke='%234f9eff' stroke-width='1.8' stroke-linecap='round' opacity='0.5'/%3E%3Ccircle cx='16' cy='24.5' r='2.2' fill='%234f9eff'/%3E%3Ccircle cx='16' cy='24.5' r='1.1' fill='%233fefd2'/%3E%3C/svg%3E"
+    />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
@@ -49,8 +53,14 @@
               </label>
 
               <div class="action-row wrap">
-                <button type="submit" class="btn btn-primary">Get live weather</button>
-                <button type="button" id="currentLocationBtn" class="btn btn-secondary">
+                <button type="submit" class="btn btn-primary">
+                  Get live weather
+                </button>
+                <button
+                  type="button"
+                  id="currentLocationBtn"
+                  class="btn btn-secondary"
+                >
                   Use my current location
                 </button>
               </div>
@@ -71,7 +81,12 @@
             <form id="recordForm" class="stack-gap">
               <label class="field-group">
                 <span>Location</span>
-                <input id="recordLocation" type="text" placeholder="e.g. Dhaka, Bangladesh" required />
+                <input
+                  id="recordLocation"
+                  type="text"
+                  placeholder="e.g. Dhaka, Bangladesh"
+                  required
+                />
               </label>
 
               <div class="grid two-up">
@@ -86,8 +101,14 @@
               </div>
 
               <div class="action-row wrap">
-                <button type="submit" class="btn btn-primary">Create record</button>
-                <button type="button" id="cancelEditBtn" class="btn btn-secondary hidden">
+                <button type="submit" class="btn btn-primary">
+                  Create record
+                </button>
+                <button
+                  type="button"
+                  id="cancelEditBtn"
+                  class="btn btn-secondary hidden"
+                >
                   Cancel edit
                 </button>
               </div>
@@ -98,9 +119,27 @@
             <div class="action-row wrap between">
               <h3>Saved requests</h3>
               <div class="action-row wrap compact">
-                <button class="btn btn-secondary export-btn" data-format="json">Export JSON</button>
-                <button class="btn btn-secondary export-btn" data-format="csv">Export CSV</button>
-                <button class="btn btn-secondary export-btn" data-format="markdown">Export Markdown</button>
+                <button
+                  type="button"
+                  class="btn btn-secondary export-btn"
+                  data-format="json"
+                >
+                  Export JSON
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary export-btn"
+                  data-format="csv"
+                >
+                  Export CSV
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary export-btn"
+                  data-format="markdown"
+                >
+                  Export Markdown
+                </button>
               </div>
             </div>
 

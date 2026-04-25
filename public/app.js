@@ -331,10 +331,46 @@ recordsList.addEventListener('click', async (event) => {
   }
 });
 
+async function downloadExport(format) {
+  try {
+    setStatus(recordFeedback, `Preparing ${format.toUpperCase()} export...`, 'success');
+
+    const response = await fetch(`/api/records/export?format=${encodeURIComponent(format)}`, {
+      method: 'GET'
+    });
+
+    if (!response.ok) {
+      const text = await response.text();
+      throw new Error(text || `Export failed with status ${response.status}`);
+    }
+
+    const blob = await response.blob();
+
+    const disposition = response.headers.get('Content-Disposition') || '';
+    const match = disposition.match(/filename="?([^"]+)"?/i);
+    const filename =
+      match?.[1] ||
+      `weather-records.${format === 'markdown' ? 'md' : format}`;
+
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
+
+    setStatus(recordFeedback, `${format.toUpperCase()} export downloaded.`, 'success');
+  } catch (error) {
+    setStatus(recordFeedback, error.message || 'Export failed.', 'error');
+  }
+}
+
 exportButtons.forEach((button) => {
   button.addEventListener('click', () => {
     const format = button.dataset.format;
-    window.open(`/api/records/export?format=${format}`, '_blank');
+    downloadExport(format);
   });
 });
 
