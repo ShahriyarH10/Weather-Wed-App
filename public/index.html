@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shahriyar Hasan | WeatherScope AI</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230b1020'/%3E%3Cstop offset='100%25' stop-color='%23131a31'/%3E%3C/linearGradient%3E%3ClinearGradient id='a' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%234f9eff'/%3E%3Cstop offset='100%25' stop-color='%233fefd2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='7' fill='url(%23bg)'/%3E%3Cpath d='M 6 20 A 12 12 0 0 1 26 20' fill='none' stroke='%234f9eff' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M 9 21.5 A 8 8 0 0 1 23 21.5' fill='none' stroke='%234f9eff' stroke-width='2' stroke-linecap='round' opacity='0.75'/%3E%3Cpath d='M 12 23 A 4.5 4.5 0 0 1 20 23' fill='none' stroke='%234f9eff' stroke-width='1.8' stroke-linecap='round' opacity='0.5'/%3E%3Ccircle cx='16' cy='24.5' r='2.2' fill='%234f9eff'/%3E%3Ccircle cx='16' cy='24.5' r='1.1' fill='%233fefd2'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero card">
+        <div>
+          <p class="eyebrow">AI Engineer Intern Technical Assessment</p>
+          <h1>WeatherScope AI</h1>
+          <p class="hero-copy">
+            A full-stack weather application by <strong>Shahriyar Hasan</strong>
+            with live weather, current-location support, 5-day forecast, saved
+            date-range lookups, exports, and map context.
+          </p>
+        </div>
+        <div class="hero-meta">
+          <span class="pill">Frontend + Backend</span>
+          <span class="pill">Responsive web app</span>
+          <span class="pill">Live APIs only</span>
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="left-column">
+          <section class="card stack-gap">
+            <div class="section-head">
+              <div>
+                <p class="section-kicker">1. Current Weather</p>
+                <h2>Search any place</h2>
+              </div>
+            </div>
+
+            <form id="weatherForm" class="stack-gap">
+              <label class="field-group">
+                <span>Location</span>
+                <input
+                  id="locationInput"
+                  name="location"
+                  type="text"
+                  placeholder="City, landmark, postal code, or GPS like 23.8103, 90.4125"
+                  required
+                />
+              </label>
+
+              <div class="action-row wrap">
+                <button type="submit" class="btn btn-primary">Get live weather</button>
+                <button type="button" id="currentLocationBtn" class="btn btn-secondary">
+                  Use my current location
+                </button>
+              </div>
+            </form>
+
+            <div id="weatherFeedback" class="status hidden"></div>
+            <div id="weatherResult" class="stack-gap hidden"></div>
+          </section>
+
+          <section class="card stack-gap">
+            <div class="section-head">
+              <div>
+                <p class="section-kicker">2. CRUD + Persistence</p>
+                <h2>Save weather by date range</h2>
+              </div>
+            </div>
+
+            <form id="recordForm" class="stack-gap">
+              <label class="field-group">
+                <span>Location</span>
+                <input id="recordLocation" type="text" placeholder="e.g. Dhaka, Bangladesh" required />
+              </label>
+
+              <div class="grid two-up">
+                <label class="field-group">
+                  <span>Start date</span>
+                  <input id="startDate" type="date" required />
+                </label>
+                <label class="field-group">
+                  <span>End date</span>
+                  <input id="endDate" type="date" required />
+                </label>
+              </div>
+
+              <div class="action-row wrap">
+                <button type="submit" class="btn btn-primary">Create record</button>
+                <button type="button" id="cancelEditBtn" class="btn btn-secondary hidden">
+                  Cancel edit
+                </button>
+              </div>
+            </form>
+
+            <div id="recordFeedback" class="status hidden"></div>
+
+            <div class="action-row wrap between">
+              <h3>Saved requests</h3>
+              <div class="action-row wrap compact">
+                <button class="btn btn-secondary export-btn" data-format="json">Export JSON</button>
+                <button class="btn btn-secondary export-btn" data-format="csv">Export CSV</button>
+                <button class="btn btn-secondary export-btn" data-format="markdown">Export Markdown</button>
+              </div>
+            </div>
+
+            <div id="recordsList" class="records-list"></div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <template id="forecastCardTemplate">
+      <article class="forecast-card">
+        <div class="forecast-top">
+          <strong class="forecast-date"></strong>
+          <span class="forecast-icon"></span>
+        </div>
+        <p class="forecast-label"></p>
+        <div class="forecast-metrics">
+          <span class="metric-pill"></span>
+          <span class="metric-pill"></span>
+          <span class="metric-pill"></span>
+        </div>
+      </article>
+    </template>
+
+    <script src="/app.js" defer></script>
+  </body>
+</html>

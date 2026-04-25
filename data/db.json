@@ -1,0 +1,387 @@
+{
+  "records": [
+    {
+      "id": "a722e2b1-8d45-4374-b816-5dfc05e56d10",
+      "locationQuery": "Dhaka",
+      "location": {
+        "name": "Dhaka",
+        "latitude": 23.7104,
+        "longitude": 90.40744,
+        "country": "Bangladesh",
+        "countryCode": "BD",
+        "admin1": "Dhaka Division",
+        "timezone": "Asia/Dhaka",
+        "displayName": "Dhaka, Dhaka Division, Bangladesh",
+        "mapEmbedUrl": "https://www.openstreetmap.org/export/embed.html?bbox=90.3274%2C23.6304%2C90.4874%2C23.7904&layer=mapnik&marker=23.7104%2C90.40744",
+        "mapUrl": "https://www.openstreetmap.org/?mlat=23.7104&mlon=90.40744#map=11/23.7104/90.40744"
+      },
+      "startDate": "2026-04-23",
+      "endDate": "2026-04-24",
+      "source": "forecast",
+      "dailyWeather": [
+        {
+          "date": "2026-04-23",
+          "weatherCode": 3,
+          "label": "Overcast",
+          "emoji": "☁️",
+          "maxTemp": 34.3,
+          "minTemp": 26.5,
+          "precipitationSum": 0
+        },
+        {
+          "date": "2026-04-24",
+          "weatherCode": 3,
+          "label": "Overcast",
+          "emoji": "☁️",
+          "maxTemp": 34.5,
+          "minTemp": 27.1,
+          "precipitationSum": 0
+        }
+      ],
+      "createdAt": "2026-04-23T17:12:59.053Z"
+    },
+    {
+      "id": "424222b3-d8dc-42b6-9048-fe7a18b4be08",
+      "locationQuery": "Dhaka",
+      "location": {
+        "name": "Dhaka",
+        "latitude": 23.7104,
+        "longitude": 90.40744,
+        "country": "Bangladesh",
+        "countryCode": "BD",
+        "admin1": "Dhaka Division",
+        "timezone": "Asia/Dhaka",
+        "displayName": "Dhaka, Dhaka Division, Bangladesh",
+        "mapEmbedUrl": "https://www.openstreetmap.org/export/embed.html?bbox=90.3274%2C23.6304%2C90.4874%2C23.7904&layer=mapnik&marker=23.7104%2C90.40744",
+        "mapUrl": "https://www.openstreetmap.org/?mlat=23.7104&mlon=90.40744#map=11/23.7104/90.40744"
+      },
+      "startDate": "2026-04-23",
+      "endDate": "2026-04-24",
+      "source": "forecast",
+      "dailyWeather": [
+        {
+          "date": "2026-04-23",
+          "weatherCode": 3,
+          "label": "Overcast",
+          "emoji": "☁️",
+          "maxTemp": 34.3,
+          "minTemp": 26.5,
+          "precipitationSum": 0
+        },
+        {
+          "date": "2026-04-24",
+          "weatherCode": 3,
+          "label": "Overcast",
+          "emoji": "☁️",
+          "maxTemp": 34.5,
+          "minTemp": 27.1,
+          "precipitationSum": 0
+        }
+      ],
+      "createdAt": "2026-04-23T17:16:19.655Z"
+    },
+    {
+      "id": "d5ef9e09-2039-4dde-836b-60327272a70e",
+      "locationQuery": "London",
+      "location": {
+        "name": "London",
+        "latitude": 51.50853,
+        "longitude": -0.12574,
+        "country": "United Kingdom",
+        "countryCode": "GB",
+        "admin1": "England",
+        "timezone": "Europe/London",
+        "displayName": "London, England, United Kingdom",
+        "mapEmbedUrl": "https://www.openstreetmap.org/export/embed.html?bbox=-0.2057%2C51.4285%2C-0.0457%2C51.5885&layer=mapnik&marker=51.50853%2C-0.12574",
+        "mapUrl": "https://www.openstreetmap.org/?mlat=51.50853&mlon=-0.12574#map=11/51.50853/-0.12574"
+      },
+      "startDate": "2026-04-23",
+      "endDate": "2026-04-24",
+      "source": "forecast",
+      "dailyWeather": [
+        {
+          "date": "2026-04-23",
+          "weatherCode": 3,
+          "label": "Overcast",
+          "emoji": "☁️",
+          "maxTemp": 18.1,
+          "minTemp": 7.4,
+          "precipitationSum": 0
+        },
+        {
+          "date": "2026-04-24",
+          "weatherCode": 2,
+          "label": "Partly cloudy",
+          "emoji": "🌤️",
+          "maxTemp": 17.7,
+          "minTemp": 6.4,
+          "precipitationSum": 0
+        }
+      ],
+      "createdAt": "2026-04-23T17:16:52.489Z"
+    },
+    {
+      "id": "c5ad8325-5225-43f3-afee-662bf8393524",
+      "locationQuery": "Borås",
+      "location": {
+        "name": "Borås",
+        "latitude": 57.72101,
+        "longitude": 12.9401,
+        "country": "Sweden",
+        "countryCode": "SE",
+        "admin1": "Västra Götaland",
+        "timezone": "Europe/Stockholm",
+        "displayName": "Borås, Västra Götaland, Sweden",
+        "mapEmbedUrl": "https://www.openstreetmap.org/export/embed.html?bbox=12.8601%2C57.6410%2C13.0201%2C57.8010&layer=mapnik&marker=57.72101%2C12.9401",
+        "mapUrl": "https://www.openstreetmap.org/?mlat=57.72101&mlon=12.9401#map=11/57.72101/12.9401"
+      },
+      "startDate": "2026-04-23",
+      "endDate": "2026-04-23",
+      "source": "forecast",
+      "dailyWeather": [
+        {
+          "date": "2026-04-23",
+          "weatherCode": 3,
+          "label": "Overcast",
+          "emoji": "☁️",
+          "maxTemp": 17.5,
+          "minTemp": 5.5,
+          "precipitationSum": 0
+        }
+      ],
+      "createdAt": "2026-04-23T17:17:48.447Z"
+    },
+    {
+      "id": "641e0eb2-a397-4b4b-9eb3-141a29712916",
+      "locationQuery": "Dhaka",
+      "location": {
+        "name": "Dhaka",
+        "latitude": 23.7104,
+        "longitude": 90.40744,
+        "country": "Bangladesh",
+        "countryCode": "BD",
+        "admin1": "Dhaka Division",
+        "timezone": "Asia/Dhaka",
+        "displayName": "Dhaka, Dhaka Division, Bangladesh",
+        "mapEmbedUrl": "https://www.openstreetmap.org/export/embed.html?bbox=90.3274%2C23.6304%2C90.4874%2C23.7904&layer=mapnik&marker=23.7104%2C90.40744",
+        "mapUrl": "https://www.openstreetmap.org/?mlat=23.7104&mlon=90.40744#map=11/23.7104/90.40744"
+      },
+      "startDate": "2026-04-23",
+      "endDate": "2026-04-24",
+      "source": "forecast",
+      "dailyWeather": [
+        {
+          "date": "2026-04-23",
+          "weatherCode": 3,
+          "label": "Overcast",
+          "emoji": "☁️",
+          "maxTemp": 34.3,
+          "minTemp": 26.5,
+          "precipitationSum": 0
+        },
+        {
+          "date": "2026-04-24",
+          "weatherCode": 3,
+          "label": "Overcast",
+          "emoji": "☁️",
+          "maxTemp": 34.5,
+          "minTemp": 27.1,
+          "precipitationSum": 0
+        }
+      ],
+      "createdAt": "2026-04-23T18:27:10.636Z"
+    },
+    {
+      "id": "ed0efa3c-2cfb-496b-822c-fabb5704473c",
+      "locationQuery": "Dhaka",
+      "location": {
+        "name": "Dhaka",
+        "latitude": 23.7104,
+        "longitude": 90.40744,
+        "country": "Bangladesh",
+        "countryCode": "BD",
+        "admin1": "Dhaka Division",
+        "timezone": "Asia/Dhaka",
+        "displayName": "Dhaka, Dhaka Division, Bangladesh",
+        "mapEmbedUrl": "https://www.openstreetmap.org/export/embed.html?bbox=90.3274%2C23.6304%2C90.4874%2C23.7904&layer=mapnik&marker=23.7104%2C90.40744",
+        "mapUrl": "https://www.openstreetmap.org/?mlat=23.7104&mlon=90.40744#map=11/23.7104/90.40744"
+      },
+      "startDate": "2026-04-25",
+      "endDate": "2026-04-26",
+      "source": "forecast",
+      "dailyWeather": [
+        {
+          "date": "2026-04-25",
+          "weatherCode": 95,
+          "label": "Thunderstorm",
+          "emoji": "⛈️",
+          "maxTemp": 37.3,
+          "minTemp": 25,
+          "precipitationSum": 7.2
+        },
+        {
+          "date": "2026-04-26",
+          "weatherCode": 95,
+          "label": "Thunderstorm",
+          "emoji": "⛈️",
+          "maxTemp": 34.9,
+          "minTemp": 25,
+          "precipitationSum": 18
+        }
+      ],
+      "createdAt": "2026-04-25T11:36:02.086Z"
+    },
+    {
+      "id": "c2e392b1-dc63-4678-b537-3f0c38474dc5",
+      "locationQuery": "Dhaka",
+      "location": {
+        "name": "Dhaka",
+        "latitude": 23.7104,
+        "longitude": 90.40744,
+        "country": "Bangladesh",
+        "countryCode": "BD",
+        "admin1": "Dhaka Division",
+        "timezone": "Asia/Dhaka",
+        "displayName": "Dhaka, Dhaka Division, Bangladesh",
+        "mapEmbedUrl": "https://www.openstreetmap.org/export/embed.html?bbox=90.3274%2C23.6304%2C90.4874%2C23.7904&layer=mapnik&marker=23.7104%2C90.40744",
+        "mapUrl": "https://www.openstreetmap.org/?mlat=23.7104&mlon=90.40744#map=11/23.7104/90.40744"
+      },
+      "startDate": "2026-04-25",
+      "endDate": "2026-04-30",
+      "source": "forecast",
+      "dailyWeather": [
+        {
+          "date": "2026-04-25",
+          "weatherCode": 95,
+          "label": "Thunderstorm",
+          "emoji": "⛈️",
+          "maxTemp": 37.3,
+          "minTemp": 25,
+          "precipitationSum": 7.2
+        },
+        {
+          "date": "2026-04-26",
+          "weatherCode": 95,
+          "label": "Thunderstorm",
+          "emoji": "⛈️",
+          "maxTemp": 34.9,
+          "minTemp": 25,
+          "precipitationSum": 18
+        },
+        {
+          "date": "2026-04-27",
+          "weatherCode": 95,
+          "label": "Thunderstorm",
+          "emoji": "⛈️",
+          "maxTemp": 33.9,
+          "minTemp": 25,
+          "precipitationSum": 40
+        },
+        {
+          "date": "2026-04-28",
+          "weatherCode": 95,
+          "label": "Thunderstorm",
+          "emoji": "⛈️",
+          "maxTemp": 35.3,
+          "minTemp": 21.4,
+          "precipitationSum": 75.5
+        },
+        {
+          "date": "2026-04-29",
+          "weatherCode": 95,
+          "label": "Thunderstorm",
+          "emoji": "⛈️",
+          "maxTemp": 32.5,
+          "minTemp": 25,
+          "precipitationSum": 8.6
+        },
+        {
+          "date": "2026-04-30",
+          "weatherCode": 95,
+          "label": "Thunderstorm",
+          "emoji": "⛈️",
+          "maxTemp": 28.9,
+          "minTemp": 23.6,
+          "precipitationSum": 41
+        }
+      ],
+      "createdAt": "2026-04-25T11:42:39.248Z"
+    },
+    {
+      "id": "930106cb-26ce-445a-837d-69aebf95a240",
+      "locationQuery": "Borås",
+      "location": {
+        "name": "Borås",
+        "latitude": 57.72101,
+        "longitude": 12.9401,
+        "country": "Sweden",
+        "countryCode": "SE",
+        "admin1": "Västra Götaland",
+        "timezone": "Europe/Stockholm",
+        "displayName": "Borås, Västra Götaland, Sweden",
+        "mapEmbedUrl": "https://www.openstreetmap.org/export/embed.html?bbox=12.8601%2C57.6410%2C13.0201%2C57.8010&layer=mapnik&marker=57.72101%2C12.9401",
+        "mapUrl": "https://www.openstreetmap.org/?mlat=57.72101&mlon=12.9401#map=11/57.72101/12.9401"
+      },
+      "startDate": "2026-04-25",
+      "endDate": "2026-04-30",
+      "source": "forecast",
+      "dailyWeather": [
+        {
+          "date": "2026-04-25",
+          "weatherCode": 61,
+          "label": "Slight rain",
+          "emoji": "🌧️",
+          "maxTemp": 11.8,
+          "minTemp": 5.7,
+          "precipitationSum": 3.3
+        },
+        {
+          "date": "2026-04-26",
+          "weatherCode": 1,
+          "label": "Mainly clear",
+          "emoji": "🌤️",
+          "maxTemp": 12.1,
+          "minTemp": 1.6,
+          "precipitationSum": 0
+        },
+        {
+          "date": "2026-04-27",
+          "weatherCode": 3,
+          "label": "Overcast",
+          "emoji": "☁️",
+          "maxTemp": 12.3,
+          "minTemp": 1.2,
+          "precipitationSum": 0
+        },
+        {
+          "date": "2026-04-28",
+          "weatherCode": 3,
+          "label": "Overcast",
+          "emoji": "☁️",
+          "maxTemp": 10,
+          "minTemp": 0.6,
+          "precipitationSum": 0
+        },
+        {
+          "date": "2026-04-29",
+          "weatherCode": 3,
+          "label": "Overcast",
+          "emoji": "☁️",
+          "maxTemp": 15.4,
+          "minTemp": 0.6,
+          "precipitationSum": 0
+        },
+        {
+          "date": "2026-04-30",
+          "weatherCode": 1,
+          "label": "Mainly clear",
+          "emoji": "🌤️",
+          "maxTemp": 15.2,
+          "minTemp": 4,
+          "precipitationSum": 0
+        }
+      ],
+      "createdAt": "2026-04-25T11:43:03.534Z"
+    }
+  ]
+}
