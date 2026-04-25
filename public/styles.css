@@ -262,7 +262,7 @@ input[type="date"] {
   font-size: 14.5px;
   transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
   outline: none;
-  -webkit-appearance: none;
+  --webkit-appearance: none;
 }
 
 input[type="text"]:hover,
